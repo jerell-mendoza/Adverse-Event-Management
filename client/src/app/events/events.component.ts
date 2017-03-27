@@ -34,11 +34,12 @@ export class EventsComponent implements OnInit {
   creatingNewEventOrEdit: Boolean = false;
   isUpdate: Boolean = false;
   currentEditIndex: number;
+  pageNumber: number = 1;
 
   constructor(private EventsDataService: EventsDataService) { }
 
   ngOnInit() {
-      this.getEvents();
+      this.getEvents(1, 100);
   }
 
   addOrUpdateEvent(isUpdate, event: Event) {
@@ -66,9 +67,9 @@ export class EventsComponent implements OnInit {
             });
   }
 
-  getEvents() {
+  getEvents(pageNumber: number, pageSize: number) {
       this.loading = true;
-      this.EventsDataService.getEvents().map(res => res.json() as Event[])
+      this.EventsDataService.getEvents(pageNumber, pageSize).map(res => res.json() as Event[])
             .subscribe(event => {
               this.events = event;
               this.loading = false;
@@ -143,5 +144,15 @@ export class EventsComponent implements OnInit {
           },
           safetyReportId: '',
           companyNumber: ''});
+  }
+
+  changePage(nextOrPrevious: String) {
+    if(nextOrPrevious==='next') {
+      this.pageNumber++;
+      this.getEvents(this.pageNumber, 100);
+    } else if(nextOrPrevious==='previous') {
+      this.pageNumber--;
+      this.getEvents(this.pageNumber, 100);
+    }
   }
 }

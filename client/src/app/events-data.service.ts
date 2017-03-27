@@ -12,8 +12,12 @@ export class EventsDataService {
     console.log(environment.serviceBaseUrl);
   }
 
-  getEvents(){
-    return this.http.get(`${environment.serviceBaseUrl}/api/Events`);
+  getEvents(pageNumber: number, pageSize: number){
+    if(!pageNumber && !pageSize) {
+      return this.http.get(`${environment.serviceBaseUrl}/api/Events`);
+    } else {
+      return this.http.get(`${environment.serviceBaseUrl}/api/Events?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+    }
   }
 
   deleteEvent(id: String){

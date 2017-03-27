@@ -3,12 +3,26 @@ var eventsRouter = express.Router();
 var Event = require('../models/event');
 
 eventsRouter.get('/events', function (req, res) {
-    Event.find(function(err, events) {
-        if (err) {
-            res.send(err);
-        }
-        res.json(events);
-    });
+    if (req.query.pageNumber && req.query.pageSize) {
+        // Event.find().skip(req.query.pageSize * (req.query.pageNumber - 1)).limit(req.query.pageSize);
+        var pagingOptions = {
+            limit: parseInt(req.query.pageSize),
+            skip: parseInt(req.query.pageSize * (req.query.pageNumber - 1))
+        };
+        Event.find({}, null, pagingOptions, function (err, events) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(events);
+        });
+    } else {
+        Event.find(function(err, events) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(events);
+        });
+    }
 })
 .get('/events/:eventId', function (req, res) {
     var id = req.params.eventId;
