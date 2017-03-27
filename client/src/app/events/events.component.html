@@ -1,0 +1,117 @@
+<div>
+    <button type="button" (click)="creatingNewEventOrEdit=!creatingNewEventOrEdit; clearEvent();">Add New Event</button>
+    <div *ngIf="creatingNewEventOrEdit" class="editBox">
+        <h2>Add or Edit Event Area:</h2> <span>You are currently {{isUpdate? 'updating an event' : 'adding a new event'}}</span>
+        <div>
+          <span>Receive Date</span>
+          <input [(ngModel)]="newEvent.receiveDate"/>
+        </div>
+        <div>
+            <span>Receipt Date</span>
+            <input [(ngModel)]="newEvent.receiptDate"/>
+        </div>
+        <div>
+            <span>Patient Information</span>
+            <div>Drugs
+                <button type="button" (click)="addNewDrug()">Add more drugs +</button>
+                <ul>
+                    <li *ngFor="let drug of newEvent.patient.drugs">
+                        <span>Autorization Number: </span>
+                        <input [(ngModel)]="drug.autorizationNumber"/>
+                        <span>Dosage Text: </span>
+                        <input [(ngModel)]="drug.DosageText"/>
+                        <span>Medicinal Product: </span>
+                        <input [(ngModel)]="drug.medicinalProduct"/>
+                        <span>Drug Indication: </span>
+                        <input [(ngModel)]="drug.drugIndication"/>
+                    </li>
+                </ul>
+            </div>
+            <div>Reaction
+                <button type="button" (click)="addReaction()">Add more reactions +</button>
+                <ul>
+                    <li *ngFor="let reaction of newEvent.patient.reaction">
+                        <span>Meddra Primary Term: </span>
+                        <input [(ngModel)]="reaction.meddraPrimaryTerm"/>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                Age:
+                <input [(ngModel)]="newEvent.patient.age"/>
+            </div>
+            <div>
+                Sex:
+                <input [(ngModel)]="newEvent.patient.sex"/>
+            </div>
+        </div>
+        <div>
+            <span>Safety Report Id</span>
+            <input [(ngModel)]="newEvent.safetyReportId"/>
+        </div>
+        <div>
+            <span>Company Number</span>
+            <input [(ngModel)]="newEvent.companyNumber"/>
+        </div>
+        <button type="button" (click)="addOrUpdateEvent(isUpdate, newEvent)">Add/Update Event</button>
+    </div>
+    <div>
+        <div *ngIf="loading" class="spinner"></div>
+        <div *ngIf="loading" id="loading">
+            Loading...
+        </div>
+    </div>
+    <h1 *ngIf="!loading && status" class="fadeInOut">
+        {{status}}
+    </h1>
+</div>
+<ul>
+  <li *ngFor="let event of events; let i = index">
+    <div>
+      <span>Receive Date</span>
+      <span>{{event.receiveDate}}</span>
+    </div>
+    <div>
+        <span>Receipt Date</span>
+        <span>{{event.receiptDate}}</span>
+    </div>
+    <div>
+        <span>Patient Information</span>
+        <div>Drugs
+            <ul>
+                <li *ngFor="let drug of event.patient.drugs">
+                    <span>Autorization Number: {{drug.autorizationNumber}},</span>
+                    <span>Dosage Text: {{drug.DosageText}},</span>
+                    <span>Medicinal Product: {{drug.medicinalProduct}},</span>
+                    <span>Drug Indication: {{drug.drugIndication}}</span>
+                </li>
+            </ul>
+        </div>
+        <div>Reaction
+            <ul>
+                <li *ngFor="let reaction of event.patient.reaction">
+                    <span>Meddra Primary Term: {{reaction.meddraPrimaryTerm}}</span>
+                </li>
+            </ul>
+        </div>
+        <div>
+            Age: {{event.patient.age}}
+        </div>
+        <div>
+            Sex: {{event.patient.sex}}
+        </div>
+    </div>
+    <div>
+        <span>Safety Report Id</span>
+        <span>{{event.safetyReportId}}</span>
+    </div>
+    <div>
+        <span>Company Number</span>
+        <span>{{event.companyNumber}}</span>
+    </div>
+    <div>
+        <button type="button" (click)="deleteEvent(event, i)">Delete</button>
+        <button type="button" (click)="editEvent(event, i)">Update</button>
+    </div>
+  </li>
+</ul>
