@@ -1,0 +1,4 @@
+FROM mongo:latest
+
+COPY mongodb_adverse_events.json /mongodb_adverse_events.json
+CMD mongoimport --host database --db adverse-events --collection events --drop --file /mongodb_adverse_events.json

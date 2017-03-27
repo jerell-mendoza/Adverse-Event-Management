@@ -1,0 +1,60 @@
+Node = server side runtime environment for javascript code
+NPM = package manager for javascript packages for project
+
+Node Commands:
+npm init - starts a new proj yo! creates a package.json for ya
+npm install <package> --save - adds a package and saves it to your package.json
+
+NPM:///////////////////////////////////////////////////////////////////////////
+versioning:
+^ = get me the latest major version EX: 4.xx.x
+~ = get me the latest minor version EX: 4.5.x
+version# = get me this specific version
+
+These are taken into account when using npm update
+
+-in package.json - can add to scripts section: "start": "node start command"
+allows us to create a quick way to start proj
+
+npm un/install <name> removes the module from node_modules, but not package.json
+
+npm un/install <name> --save also remove from dependencies in package.json
+
+npm un/install <name> --save-dev also remove from devDependencies in package.json
+
+npm -g un/install <name> --save also remove it globally
+
+
+Express:///////////////////////////////////////////////////////////////////////
+require it, then execute it
+.listen (port, callback function) - allows us to listen for requests
+
+app.get = set up a get endpoint
+
+app.use = can use to set up a static directory - serve up files
+
+
+Bower: front end package manager - ex: fontawesome, bootstrap, angular
+NPM: backend package manager
+
+
+Gulp: task manager! - Makes life easier/////////////////////////////////////////
+-Does monotonous tasks for us
+
+Coding Standard tools:
+-JSCS
+-JSHint
+-ESLint
+-JSLint
+
+We used packages: gulp-jshint, gulp-jscs, jshint-stylish
+
+Taking care of injected css/js files - Use gulp-inject
+https://github.com/klei/gulp-inject#basic-usage
+
+
+angular cli - easy way to create template angular apps!///////////////////
+ng new --appname--
+ng serve = runs app
+
+https://scotch.io/tutorials/create-a-mean-app-with-angular-2-and-docker-compose
